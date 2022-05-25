@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+ 
+<launch>
+ 
+    <param name="/use_sim_time" value="true" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0.06 0 1.40 0 0 0 1 robot_base_footprint os_sensor 100" /> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster_2" args="0 0 0 0 0 0 1 os_sensor robot_base_footprint 10" /> -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+          <param name="resolution" value="0.1" />
+          <param name="base_frame_id" value="os_imu" />
+          <param name="frame_id" value="map" />
+          <remap from="cloud_in" to="/points_correct_stamp" />
+    </node>
+ 
+    <node name="rviz" pkg="rviz" type="rviz" args="-d octomap_server.rviz" output="screen" />
+ 
+</launch>
